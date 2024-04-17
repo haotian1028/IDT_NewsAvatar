@@ -1,2 +1,4 @@
 # Ignore .webm files
 *.webm
+# Ignore access key
+*.env

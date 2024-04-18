@@ -17,7 +17,7 @@ def rewrite_news(content):
     - A string representing the generated news report content.
     """
 
-    prompt = "Vorrei che tu fossi un conduttore del telegiornale di Repubblica. Dovrai presentare le notizie sulla base dei contenuti che ti fornirò. Dovrai riassumere e riorganizzare il contenuto delle notizie che ti fornirò. La presentazione deve includere un'introduzione, un riassunto delle notizie e un resoconto dettagliato. Deve essere concisa e non superare le 200 parole.Iniziate con Cari telespettatori, benvenuti al notiziario di oggi"
+    prompt = "Vorrei che tu fossi un conduttore del telegiornale di Repubblica. Dovrai presentare le notizie sulla base dei contenuti che ti fornirò. Dovrai riassumere e riorganizzare il contenuto delle notizie che ti fornirò. La presentazione deve includere un'introduzione, un riassunto delle notizie e un resoconto dettagliato. Deve essere concisa e non superare le 300 parole.Iniziate con Cari telespettatori, benvenuti al notiziario di oggi"
 
     client = OpenAI(
         api_key=os.getenv("GPT_API_KEY")

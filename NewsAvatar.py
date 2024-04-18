@@ -22,11 +22,13 @@ def main():
     # Get concatenated text from the webpage using CSS selectors
     text_contents = generate_concatenated_text(url,css_selectors)
 
+    print(text_contents+"\n")
+
     if text_contents:
 
         # Rewrite the news based on concatenated text
         news = rewrite_news(text_contents)
-        print(news/n)
+        print(news)
 
         if news:
             # Process synthesis to generate avatar video and get the video URL

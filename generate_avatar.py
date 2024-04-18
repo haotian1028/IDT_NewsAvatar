@@ -135,6 +135,6 @@ def process_synthesis(Speech_Content):
                 logger.info(f'batch avatar synthesis job is still running, status [{status}]')
                 time.sleep(5)
 
-# Example Call
+#Example Call
 
 # process_synthesis("Hi,again...This is a test content")

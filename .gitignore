@@ -2,3 +2,5 @@
 *.webm
 # Ignore access key
 *.env
+
+**/__pycache__/

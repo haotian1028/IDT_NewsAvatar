@@ -1,6 +1,7 @@
 import subprocess
 from get_text import generate_concatenated_text
 from rewrite_news import rewrite_news
+from rewrite_news import get_points
 from generate_avatar import process_synthesis
 
 """
@@ -16,23 +17,21 @@ def main():
     url = input("Enter the URL of the webpage: ")
 
 
-    # Define default CSS selectors
-    css_selectors = [".story__title", ".story__summary", ".story__text"]
-
     # Get concatenated text from the webpage using CSS selectors
-    text_contents = generate_concatenated_text(url,css_selectors)
+    text_contents = generate_concatenated_text(url,"LR")
 
-    print(text_contents+"\n")
+    # print(text_contents+"\n")
 
     if text_contents:
 
         # Rewrite the news based on concatenated text
-        news = rewrite_news(text_contents)
-        print(news)
+        news = rewrite_news(text_contents,"EN")
+        summery=get_points(text_contents,"EN")
+        # generate_text_image(summery)
 
         if news:
             # Process synthesis to generate avatar video and get the video URL
-            process_synthesis(news)
+            process_synthesis(news,"EN")
 
         else:
             print("Failed to rewrite the news.")

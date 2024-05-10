@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import subprocess
 
-def get_text_from_css_selectors(url, css_selectors):
+def get_text_from_css_selectors(url, site_section="LR"):
     """
     Get text content from specific CSS selectors in a webpage.
 
@@ -13,6 +13,11 @@ def get_text_from_css_selectors(url, css_selectors):
     Returns:
     - List of tuples, each tuple containing text content corresponding to the CSS selector.
     """
+
+    web_css_lists = {"LR":[".story__title", ".story__summary", ".story__text"]}
+
+    css_selectors = web_css_lists[site_section]
+
     # Send a GET request to fetch webpage content
     response = requests.get(url)
     if response.status_code == 200:

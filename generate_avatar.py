@@ -30,6 +30,15 @@ DESCRIPTION = "Simple avatar synthesis description"
 # The service host suffix.
 SERVICE_HOST = "customvoice.api.speech.microsoft.com"
 
+#default
+voice="it-IT-ElsaNeural"
+talkingAvatarCharacter="lisa"
+
+
+
+# voice: en-GB-SoniaNeural,it-IT-ElsaNeural
+#character: lisa
+
 
 def submit_synthesis(Speech_Content):
     url = f'https://{SERVICE_REGION}.{SERVICE_HOST}/api/texttospeech/3.1-preview1/batchsynthesis/talkingavatar'
@@ -43,7 +52,7 @@ def submit_synthesis(Speech_Content):
         'description': DESCRIPTION,
         "textType": "PlainText",
         'synthesisConfig': {
-            "voice": "it-IT-ElsaNeural",
+            "voice": voice,
         },
         # Replace with your custom voice name and deployment ID if you want to use custom voice.
         # Multiple voices are supported, the mixture of custom voices and platform voices is allowed.
@@ -60,7 +69,7 @@ def submit_synthesis(Speech_Content):
         ],
         "properties": {
             "customized": False, # set to True if you want to use customized avatar
-            "talkingAvatarCharacter": "lisa",  # talking avatar character
+            "talkingAvatarCharacter": talkingAvatarCharacter,  # talking avatar character
             "talkingAvatarStyle": "graceful-sitting",  # talking avatar style, required for prebuilt avatar, optional for custom avatar
             "videoFormat": "webm",  # mp4 or webm, webm is required for transparent background
             "videoCodec": "vp9",  # hevc, h264 or vp9, vp9 is required for transparent background; default is hevc
@@ -103,7 +112,8 @@ def get_synthesis(job_id):
 
         return response.json()['status']
     else:
-        logger.error(f'Failed to get batch synthesis job: {response.text}')
+        error = "Failed to get batch synthesis job: " + response.text
+        return error
 
 
 def list_synthesis_jobs(skip: int = 0, top: int = 100):
@@ -120,7 +130,10 @@ def list_synthesis_jobs(skip: int = 0, top: int = 100):
         logger.error(f'Failed to list batch synthesis jobs: {response.text}')
 
 
-def process_synthesis(Speech_Content):
+def process_synthesis(Speech_Content,voice_selection="IT",Character_selection="lisa"):
+    voices={"IT":"it-IT-ElsaNeural","EN":"en-GB-SoniaNeural"}
+    voice=voices[voice_selection]
+    talkingAvatarCharacter=Character_selection
     job_id = submit_synthesis(Speech_Content)
     if job_id is not None:
         while True:

@@ -12,14 +12,12 @@ client = OpenAI(
 )
 
 
-
-
 # Get URL 
-url = "https://www.repubblica.it/politica/2024/04/18/news/aborto_governo_lega_pro_life_consultori-422575453/?ref=RHLF-BG-P1-S2-F"
+url = "https://genova.repubblica.it/cronaca/2024/04/29/news/incidente_sullautofiori_tir_si_ribalta_si_viaggia_su_una_sola_corsia-422771681/?ref=RHLF-BG-P18-S1-T1"
 
 # Define default CSS selectors
 css_selectors = [".story__title", ".story__summary", ".story__text"]
-css_selector_image=".story__media > picture:nth-child(1) > img:nth-child(4)"
+css_selector_image = ".story__media > picture:nth-child(1) > img:nth-child(4)"
 
 # Get concatenated text from the webpage using CSS selectors
 text_contents = generate_concatenated_text(url,css_selectors)
@@ -29,7 +27,7 @@ css_selector_image=".story__media > picture:nth-child(1) > img:nth-child(4)"
 
 image=get_img_from_css_selectors(url,css_selector_image)
 
-print(text_contents+"\n")
+# print(text_contents+"\n")
 
 if text_contents:
 
@@ -37,8 +35,8 @@ if text_contents:
     news = rewrite_news(text_contents)
     print(news)
 
+# prompt= "Base on the news content:" + news +  "descirbe the image. And you're a news reporter, combine the image, report the news for me in 300 words"
 prompt= "Base on the news content:" + news +  "descirbe the image."
-
 
 
 response = client.chat.completions.create(

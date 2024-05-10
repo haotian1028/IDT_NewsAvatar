@@ -11,32 +11,40 @@ https://torino.repubblica.it/cronaca/2024/04/17/news/agente_penitenziaria_test_o
 """
 
 
-def main():
+def NewsAvatar(URL,website,language="IT"):
+
+    result=dict()
 
     # Get URL input from command line
-    url = input("Enter the URL of the webpage: ")
-
+    url = URL
 
     # Get concatenated text from the webpage using CSS selectors
-    text_contents = generate_concatenated_text(url,"LR")
+    text_contents = generate_concatenated_text(url,website)
 
     # print(text_contents+"\n")
 
     if text_contents:
 
         # Rewrite the news based on concatenated text
-        news = rewrite_news(text_contents,"EN")
-        summery=get_points(text_contents,"EN")
+        news = rewrite_news(text_contents,language)
+        summery=get_points(text_contents,language)
+        result['news_script']=news
+        result['news_summery']=summery
         # generate_text_image(summery)
 
         if news:
             # Process synthesis to generate avatar video and get the video URL
-            process_synthesis(news,"EN")
+            avatar = process_synthesis(news,language)
+            result['avatar']=avatar
+            return result
 
         else:
             print("Failed to rewrite the news.")
+            return "error: Failed to rewrite the news."
     else:
         print("Failed to get text content from the webpage.")
+        return "error: Failed to get text content from the webpage."
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     url="https://roma.repubblica.it/sport/2024/04/17/news/tifoso_roma_telefonata_radio_eutanasia_europa_league-422557771/?ref=RHLF-BG-P17-S1-T1"
+#     NewsAvatar(utl,"LR","IT")

@@ -107,10 +107,10 @@ def get_synthesis(job_id):
             video_filename = "AI_generation.webm"
             with open(video_filename, 'wb') as f:
                 f.write(requests.get(download_url).content)
-            # Play
+            Play
             os.startfile(video_filename)
-
-        return response.json()['status']
+            response.json()["outputs"]["result"]
+        return response.json()
     else:
         error = "Failed to get batch synthesis job: " + response.text
         return error
@@ -132,18 +132,21 @@ def list_synthesis_jobs(skip: int = 0, top: int = 100):
 
 def process_synthesis(Speech_Content,voice_selection="IT",Character_selection="lisa"):
     voices={"IT":"it-IT-ElsaNeural","EN":"en-GB-SoniaNeural"}
-    voice=voices[voice_selection]
+    global voice 
+    global talkingAvatarCharacter
+    voice = voices[voice_selection]
     talkingAvatarCharacter=Character_selection
     job_id = submit_synthesis(Speech_Content)
     if job_id is not None:
         while True:
-            status = get_synthesis(job_id)
+            job_response = get_synthesis(job_id)
+            status = job_response['status']
             if status == 'Succeeded':
                 logger.info('batch avatar synthesis job succeeded')
-                break
+                return job_response["outputs"]["result"]
             elif status == 'Failed':
                 logger.error('batch avatar synthesis job failed')
-                break
+                return 'batch avatar synthesis job failed'
             else:
                 logger.info(f'batch avatar synthesis job is still running, status [{status}]')
                 time.sleep(5)

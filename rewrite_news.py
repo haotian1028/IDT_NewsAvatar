@@ -52,7 +52,7 @@ def get_points(content,prompt_selection="IT"):
     """
 
     prompts = {"IT":"Riassumete le notizie che vi ho fornito in 50 parole o meno sotto forma di titoli, interruzioni di riga, punti elenco (interruzioni di riga per ogni punto elenco).",
-               "EN":"Summarise the news I have provided in 50 words or less in the form of headings, line breaks, bullet points (line breaks per bullet point)."}
+               "EN":"Summarise the news I have provided in 50 words or less in the form of headings, line breaks, bullet points (line breaks per bullet point) in English"}
 
     prompt=prompts[prompt_selection]
 
